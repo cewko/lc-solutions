@@ -1,38 +1,23 @@
-def reverse_words(stdin):
-    words = []
-    word = ""
-    reversed_string = ""
+def remove_element(nums, value):
+    left = 0
 
-    for i in range(len(stdin)):
-        if stdin[i] == " ":
-            if word != "":
-                words.append(word)
-                word = ""
-        else:
-            word += stdin[i]
+    for right in range(len(nums)):
+        if nums[right] != value:
+            nums[left], nums[right] = nums[right], nums[left]
+            left += 1
 
-    if word != "":
-        words.append(word)
-
-    for i in range(len(words) - 1, -1, -1):
-        reversed_string += words[i]
-
-        if i > 0:
-            reversed_string += " "
-
-    return reversed_string
+    return left
 
 
 test_cases = [
-    "the sky is blue", 
-    "  hello world  ", 
-    "a good   example"
+    ([3,2,2,3], 3),
+    ([0,1,2,2,3,0,4,2], 2)
 ]
 test_results = [
-    "blue is sky the",
-    "world hello",
-    "example good a"
+    [2,2],
+    [0,1,3,0,4]
 ]
 
-for string_, expected in zip(test_cases, test_results):
-    print(reverse_words(string_) == expected)
+
+for (nums, value), expected in zip(test_cases, test_results):
+    print(nums[:remove_element(nums, value)] == expected)
